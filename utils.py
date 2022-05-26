@@ -48,9 +48,10 @@ def split_train_val(root: str, val_rate: float = 0.2):
         # 按比例随机采样验证样本
         val_path = random.sample(images, k=int(len(images) * val_rate))
 
-        if os.path.exists(params.ROOT / 'val' / cla):
-            shutil.rmtree(params.ROOT / 'val' / cla)
-        os.makedirs(params.ROOT / 'val' / cla)
+        for mode in ['train', 'val']:
+            if os.path.exists(params.ROOT / mode / cla):
+                shutil.rmtree(params.ROOT / mode / cla)
+            os.makedirs(params.ROOT / mode / cla)
 
         for img_path in images:
             if img_path in val_path:  # 如果该路径在采样的验证集样本中则存入验证集
