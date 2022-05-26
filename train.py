@@ -8,7 +8,7 @@ from torchvision import transforms
 
 import params
 from my_dataset import MyDataSet
-from utils import split_train_val, create_lr_scheduler, get_params_groups, train_one_epoch, evaluate
+from utils import split_train_val, read_data, create_lr_scheduler, get_params_groups, train_one_epoch, evaluate
 from models import *
 
 
@@ -20,7 +20,10 @@ def main(args):
 
     tb_writer = SummaryWriter()
 
-    train_images_path, train_images_label, val_images_path, val_images_label = split_train_val(args.data_path)
+    # train_images_path, train_images_label, val_images_path, val_images_label = split_train_val(args.data_path)
+    train_images_path, train_images_label = read_data('', 'train')
+    val_images_path, val_images_label = read_data('', 'val')
+
 
     img_size = params.img_size
     data_transform = {
